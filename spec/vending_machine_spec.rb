@@ -5,39 +5,27 @@ describe VendingMachine do
 		@vending_machine = VendingMachine.new
 	end
 
-	describe "#put" do
-		it "should not raise error when put coins" do
-			[10, 50, 100, 500, 1000].each do |coin|
-				expect {@vending_machine.put coin}.not_to raise_error
+	describe "#amounts" do
+		[10, 50, 100, 500, 1000].each do |coin|
+			it "should return 30 when put #{coin} yen 3 times" do
+				3.times.each do
+					@vending_machine.put coin
+				end
+
+				expect(@vending_machine.amounts).to eq coin * 3
 			end
-		end
-	end
-
-	describe "#display" do
-		it "should return 30 when put 10 yen 3 times" do
-			3.times.each do
-				@vending_machine.put 10
-			end
-
-			expect(@vending_machine.display).to eq 30
-		end
-
-		it "should return 300 when put 100 yen 3 times" do
-			3.times.each do
-				@vending_machine.put 100
-			end
-
-			expect(@vending_machine.display).to eq 300
 		end
 	end
 
 	describe "#cancel" do
-		it "should return 30 when put 10 yen 3 times" do
-			3.times.each do
-				@vending_machine.put 10
-			end
+		[10, 50, 100, 500, 1000].each do |coin|
+			it "should return 30 when put #{coin} yen 3 times" do
+				3.times.each do
+					@vending_machine.put coin
+				end
 
-			expect(@vending_machine.cancel).to eq 30
+				expect(@vending_machine.cancel).to eq coin * 3
+			end
 		end
 	end
 end

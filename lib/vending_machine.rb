@@ -1,14 +1,18 @@
 class VendingMachine
 	def put(coin)
-		@coins ||= []
-		@coins.push(coin)
+		coins.push(coin)
 	end
 
-	def display
-		@coins.reduce {|sum, coin| sum + coin}
+	def amounts
+		coins.reduce {|sum, coin| sum + coin}
 	end
 
 	def cancel
-		display
+		amounts
+	end
+
+	private
+	def coins
+		@coins ||= []
 	end
 end
