@@ -14,6 +14,10 @@ class VendingMachine
 		amounts
 	end
 
+	def items
+		@items ||= [{name: 'cola', price: 120, quantity: 5}]
+	end
+
 	private
 	def coins
 		@coins ||= []

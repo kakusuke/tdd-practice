@@ -55,4 +55,10 @@ describe VendingMachine do
 		end
 	end
 
+	context "#info" do
+		it "should return items" do
+			expect(@vending_machine.items).to eq [{name: 'cola', price: 120, quantity: 5}]
+		end
+	end
+
 end
