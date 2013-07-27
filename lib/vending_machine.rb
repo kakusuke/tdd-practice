@@ -1,10 +1,9 @@
 class VendingMachine
 	def put(coin)
-		if [10, 50, 100, 500, 1000].include? coin then
-			coins.push(coin)
-			coin = 0
-		end
-		coin
+		return coin unless [10, 50, 100, 500, 1000].include? coin
+
+		coins.push(coin)
+		0
 	end
 
 	def amounts

@@ -5,42 +5,54 @@ describe VendingMachine do
 		@vending_machine = VendingMachine.new
 	end
 
-	describe "#put" do
-		[10, 50, 100, 500, 1000].each do |coin|
-			it "should not return coin" do
+	context "that put acceptable coins" do
+		before :each do
+			@coins = [10, 50, 100, 500, 1000]
+		end
+
+		it "should not return coin" do
+			@coins.each do |coin|
 				expect(@vending_machine.put coin).to eq 0
-				expect(@vending_machine.amounts).to eq coin
 			end
 		end
-		[1, 5, 2000, 5000, 10000].each do |coin|
-			it "should return coin" do
+
+		it "should amount all coins" do
+			@coins.each do |coin|
+				@vending_machine.put coin
+			end
+			expect(@vending_machine.amounts).to eq 1660
+		end
+
+		context "when cancelled" do
+			before :each do
+				@coins.each do |coin|
+					@vending_machine.put coin
+				end
+			end
+
+			it "should return all coins" do
+				expect(@vending_machine.cancel).to eq 1660
+			end
+		end
+	end
+
+	context "that put unacceptable coins" do
+		before :each do
+			@coins = [1, 5, 2000, 5000, 10000]
+		end
+
+		it "should return coin" do
+			@coins.each do |coin|
 				expect(@vending_machine.put coin).to eq coin
-				expect(@vending_machine.amounts).to eq 0
 			end
+		end
+
+		it "should have no coin" do
+			@coins.each do |coin|
+				@vending_machine.put coin
+			end
+			expect(@vending_machine.amounts).to eq 0
 		end
 	end
 
-	describe "#amounts" do
-		[10, 50, 100, 500, 1000].each do |coin|
-			it "should return 30 when put #{coin} yen 3 times" do
-				3.times.each do
-					@vending_machine.put coin
-				end
-
-				expect(@vending_machine.amounts).to eq coin * 3
-			end
-		end
-	end
-
-	describe "#cancel" do
-		[10, 50, 100, 500, 1000].each do |coin|
-			it "should return 30 when put #{coin} yen 3 times" do
-				3.times.each do
-					@vending_machine.put coin
-				end
-
-				expect(@vending_machine.cancel).to eq coin * 3
-			end
-		end
-	end
 end
