@@ -15,11 +15,21 @@ class VendingMachine
 	end
 
 	def items
-		@items ||= [{name: 'cola', price: 120, quantity: 5}]
+		@items ||= [Item.new('cola', price: 120, quantity: 5)]
 	end
 
 	private
 	def coins
 		@coins ||= []
+	end
+
+	class Item
+		attr_accessor :name, :price, :quantity
+
+		def initialize(name, price: 120, quantity: 0)
+			@name = name
+			@price = price
+			@quantity = quantity
+		end
 	end
 end
